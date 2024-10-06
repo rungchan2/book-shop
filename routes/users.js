@@ -1,18 +1,21 @@
 const express = require('express');
 const router = express.Router();
 router.use(express.json())
+const conn = require("../mariadb")
+const {StatusCodes} = require("http-status-codes")
+const {signup, login, requestPw, resetPw} = require("../controllers/userController")
 
 //signup
-router.post('/signup', (req, res) => {})
+router.post('/signup', signup)
 
 //login
-router.post('/login', (req, res) => {})
+router.post('/login', login)
 
 
 //reset pw request
 router.route('/reset')
-    .post((req, res) => {})
-    .put((req, res) => {})
+    .post(requestPw)
+    .put(resetPw)
 
 
 //update pw
