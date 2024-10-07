@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 router.use(express.json())
 const conn = require("../mariadb")
-const {StatusCodes} = require("http-status-codes")
 const {signup, login, requestPw, resetPw} = require("../controllers/userController")
 
 //signup
