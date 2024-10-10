@@ -99,3 +99,36 @@ Ref: "cart"."user_id" < "users"."id"
 Ref: "orderedBook"."order_id" < "orders"."order_id"
 
 Ref: "category"."id" < "books"."category_id"
+
+
+
+
+// likes
+
+INSERT INTO likes (user_id, liked_book_id) VALUES (1, 1);
+INSERT INTO likes (user_id, liked_book_id) VALUES (1, 2);
+INSERT INTO likes (user_id, liked_book_id) VALUES (1, 3);
+INSERT INTO likes (user_id, liked_book_id) VALUES (3, 1);
+INSERT INTO likes (user_id, liked_book_id) VALUES (4, 4);
+INSERT INTO likes (user_id, liked_book_id) VALUES (2, 1);
+INSERT INTO likes (user_id, liked_book_id) VALUES (2, 2);
+INSERT INTO likes (user_id, liked_book_id) VALUES (2, 3);
+INSERT INTO likes (user_id, liked_book_id) VALUES (2, 5);
+
+
+SELECT count(*) FROM likes where liked_book_id = 1;
+
+select *, (SELECT count(*) FROM likes where liked_book_id = 1;) AS likes from books;
+
+SElect exists (SELECT * FROM likes where liked_book_id = 1 and user_id = 1);
+
+
+//장바구니
+INsert into cartItem (book_id, quantity, user_id) values(1,1,1);
+
+//
+
+SELECT cartItems.id book_id, title, summary , quantity, price FROM cartItems JOIN books ON cartItems.book_id = books.id WHERE user_id = 1;
+
+
+SELECT * from cartItems Where user_id = 1 AND id in (1,3);

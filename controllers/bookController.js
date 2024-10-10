@@ -2,7 +2,6 @@ const conn = require("../mariadb")
 const { StatusCodes } = require("http-status-codes")
 const { body, validationResult } = require('express-validator');
 require('dotenv').config()
-const crypto = require('crypto')
 
 
 const allBooks = (req, res) => {
@@ -14,7 +13,7 @@ const allBooks = (req, res) => {
 
     let offset = (currentPage - 1) * limit
 
-    let sql = `SELECT * FROM books`
+    let sql = `SELECT *, (SELECT count(*) FROM likes where books.id = liked_book_id) AS likes FROM books`
     let values = []
 
     if (category_id && news) {
@@ -48,12 +47,16 @@ const allBooks = (req, res) => {
 
 const bookDetail = (req, res) => {
 
-    let { id } = req.params
-    id = parseInt(id)
+    let book_id = req.params.id
+    let { user_id } = req.body
 
-    sql = `SELECT * from books WHERE id = ?`
+    book_id = parseInt(book_id)
 
-    conn.query(sql, [id], (err, results) => {
+    sql = `SELECT *, (SELECT count(*) FROM likes WHERE liked_book_id = books.id) AS likes, (SELECT exists (SELECT * FROM likes where liked_book_id = ? and user_id = ?)) AS liked from books LEFT JOIN category On books.category_id = category.category_id WHERE books.id = ?`
+
+    let values = [book_id, user_id, book_id]
+
+    conn.query(sql, values, (err, results) => {
         if (err) {
             console.log(err)
             return res.status(StatusCodes.BAD_REQUEST).json({ message: "Internal Server Error" }).end()
