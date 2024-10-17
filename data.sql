@@ -132,3 +132,13 @@ SELECT cartItems.id book_id, title, summary , quantity, price FROM cartItems JOI
 
 
 SELECT * from cartItems Where user_id = 1 AND id in (1,3);
+
+//배송정보 입력
+INSERT INTO delivery (address, receiver, contact) VALUES ("서울시 강남구", "홍길동", "010-1234-5678");
+INSERT INTO orders (delivery_id, total_price, created_at, user_id, book_title) VALUES ((SELECT max(id) FROM delivery), 20000, now(), 1, "해님달님");
+
+//주문 상세 목록 입력
+INSERT INTO orderdBook (order_id, book_id, quantity, created_at) VALUES ((SELECT max(id) FROM orders), 1, 1, now());
+
+//카트 삭제
+DELETE FROM cartItems WHERE id in (1,3,2);
