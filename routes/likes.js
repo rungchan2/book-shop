@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 router.use(express.json())
-const { likePost, unlikePost } = require('../controllers/likeController') 
+const { likeBook, unlikeBook } = require('../controllers/likeController') 
 
-router.post('/likes/:id', likePost)
+router.post('/likes/:id', likeBook)
 
-router.delete('/likes/:id', unlikePost)
+router.delete('/likes/:id', unlikeBook)
 
 module.exports = router;
