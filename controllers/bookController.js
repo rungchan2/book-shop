@@ -38,10 +38,14 @@ const allBooks = (req, res) => {
 
     conn.query(sql, values, (err, results) => {
         if (err) {
-            console.log(err)
+            console.log(err) 
             return res.status(StatusCodes.BAD_REQUEST).json({ message: "Internal Server Error" }).end()
         }
         if (results[0]) {
+            results.map(result => {
+                result.pubDate = result.pub_date;
+                delete result.pub_date;
+            })
             allBooksRes.books = results;
         } else {
             return res.status(StatusCodes.NOT_FOUND).json({ message: "Books not found" })

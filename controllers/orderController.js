@@ -122,6 +122,7 @@ const getOrderDetail = (req, res) => {
                     results
                 })
             }
+            
 
         })
     }

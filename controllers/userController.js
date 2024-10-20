@@ -25,11 +25,14 @@ const signup = (req, res) => {
         if (err) {
             console.log(err)
             res.status(StatusCodes.BAD_REQUEST).json({ message: "Internal Server Error" })
-        } else {
+        } 
+        if (result.affectedRows) {
             res.status(StatusCodes.CREATED).json({
                 message: "User created",
                 result
             })
+        } else  {
+            return res.status(StatusCodes.BAD_REQUEST).json({message : "bad request"})
         }
 
     })
