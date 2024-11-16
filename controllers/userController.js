@@ -64,7 +64,8 @@ const login = (req, res) => {
 
                 res.status(StatusCodes.OK).json({
                     message: 'Login success',
-                    results
+                    ...results[0],
+                    token: token
                 })
 
             } else if (loginUser && loginUser.password !== hashedPassword) {

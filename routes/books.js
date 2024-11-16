@@ -19,6 +19,7 @@ router.get('/category', (req, res) => {
             return res.status(StatusCodes.BAD_REQUEST).json({ message: "Internal Server Error" }).end()
         }
         res.status(StatusCodes.OK).json({ message: "Category retrieved", results })
+        console.log('category 전체조회 성공')
     })
 })
 
